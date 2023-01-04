@@ -4,7 +4,7 @@ using TMPro;
 public class MoneyBalance : MonoBehaviour
 {
     [SerializeField] private TMP_Text _money;
-    [SerializeField] private PlayerMoney _player;
+    [SerializeField] private PlayerWallet _player;
 
     private void OnEnable()
     {

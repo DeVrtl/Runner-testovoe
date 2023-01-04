@@ -2,17 +2,13 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private PlayerMoney _player;
     [SerializeField] private int _reward;
     [SerializeField] private ParticleSystem _pickUpEffect;
 
-    private void OnTriggerEnter(Collider other)
+    public int Collect()
     {
-        if (other.TryGetComponent<PlayerMoney>(out PlayerMoney player))
-        {
-            player.AddMoney(_reward);
-            Destroy(gameObject);
-            _pickUpEffect.Play();
-        }
+        Instantiate(_pickUpEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+        return _reward;
     }
 }

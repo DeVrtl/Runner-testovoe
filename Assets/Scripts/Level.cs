@@ -4,32 +4,25 @@ using UnityEngine.UI;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] private Button _restartButton;
-    [SerializeField] private CanvasGroup _gameOverGroup;
+    [SerializeField] private EndCard _endCard;
+    [SerializeField] private Finish _finish;
 
     private void OnEnable()
     {
-        _restartButton.onClick.AddListener(OnRestartButtonClick);
+        _finish.Reached += OnReached;
+        _endCard.RestartButtonClicked += OnRestartButtonClick;
     }
 
     private void OnDisable()
     {
-        _restartButton.onClick.RemoveListener(OnRestartButtonClick);
+        _finish.Reached -= OnReached;
+        _endCard.RestartButtonClicked -= OnRestartButtonClick;
     }
 
-    private void Start()
+    private void OnReached()
     {
-        _gameOverGroup.alpha = 0;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<Player>(out Player player))
-        {
-            Time.timeScale = 0;
-            _gameOverGroup.alpha = 1;
-            _restartButton.gameObject.SetActive(true);
-        }
+        Time.timeScale = 0;
+        _endCard.Show();
     }
 
     private void OnRestartButtonClick()

@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
 {
-    private const string Run = nameof(Run);
-    private const string Idle = nameof(Idle);
+    private Animator _animator;
 
-    public void PlayRunAnimation(Animator animator)
+    private void Awake()
     {
-        PlayAnimation(animator, Run);
+        _animator = GetComponent<Animator>();
     }
 
-    public void PlayIdleAnimation(Animator animator)
+    public void Play(PlayerAnimations state)
     {
-        PlayAnimation(animator, Idle);
+        _animator.Play(state.ToString());
     }
+}
 
-    private void PlayAnimation(Animator animator, string state)
-    {
-        animator.Play(state);
-    }
+public enum PlayerAnimations
+{
+    Idle, Run
 }
