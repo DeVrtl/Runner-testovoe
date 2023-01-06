@@ -10,6 +10,9 @@ public class PlayerWallet : MonoBehaviour
 
     public void Add(int value)
     {
+        if (Value + 1 > int.MaxValue)
+            throw new InvalidOperationException();
+
         Value += value;
         MoneyChanged?.Invoke(Value);
     }
