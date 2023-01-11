@@ -53,6 +53,6 @@ public class Player : MonoBehaviour
 
     private void OnMousePushed()
     {
-        _mover.Move(_input.MousePosition);
+        _mover.Move(_input.DeltaX);
     }
 }

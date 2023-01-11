@@ -6,7 +6,6 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Vector2 _speed;
 
     private Rigidbody _rigidbody;
-    private Vector3 _lastMousePosition;
     private Vector3 _target;
 
     private void Awake()
@@ -14,13 +13,11 @@ public class PlayerMover : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Move(Vector3 mousePosition)
+    public void Move(float deltaX)
     {
-        float deltaX = mousePosition.x - _lastMousePosition.x;
-        _lastMousePosition = mousePosition;
-        _rigidbody.position = _target + transform.forward * _speed.x * Time.deltaTime;
-
         _target = transform.position;
         _target.x += deltaX * Time.deltaTime * _speed.y;
+
+        _rigidbody.position = _target + transform.forward * _speed.x * Time.deltaTime;
     }
 }

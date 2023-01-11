@@ -4,8 +4,10 @@ using UnityEngine.Events;
 public class PlayerInput : MonoBehaviour
 {
     private Camera _camera;
+    private Vector3 _lastMousePosition;
+    private Vector3 _mousePosition => _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
 
-    public Vector3 MousePosition => _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f)); 
+    public float DeltaX => _mousePosition.x - _lastMousePosition.x;
 
     public event UnityAction MouseDowned;
     public event UnityAction MouseUped;
@@ -30,6 +32,7 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetMouseButton(0))
         {
             MousePushed?.Invoke();
+            _lastMousePosition = _mousePosition;
         }
     }
 }
